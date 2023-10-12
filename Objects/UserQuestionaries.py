@@ -53,3 +53,6 @@ def create(session, user_info_id, user_referral_id, age_under_17, employment_sta
     session.add(entry)
     session.commit()
 
+def get(session, user_questionaries_id):
+    first = session.query(UserQuestionaries).filter(user_questionaries_id=user_questionaries_id).first()
+    return first
