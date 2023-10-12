@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy import Column, Integer, String, Date, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_repr import RepresentableBase
 
@@ -17,7 +17,7 @@ class LoginBasedDocType(Base):
     modified_by = Column(String(50))
     deleted_on = Column(Date)
     deleted_by = Column(String(50))
-    is_active = Column(sqlalchemy.Boolean)
+    is_active = Column(Boolean)
 
 
 def create(session, login_based_doc_type, created_on, created_by, modified_on, modified_by, deleted_on, deleted_by, is_active):
