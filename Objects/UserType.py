@@ -1,7 +1,9 @@
-import sqlalchemy
-from sqlalchemy import Column, Integer, String, Date
+import json
+
+from sqlalchemy import Column, Integer, String, Date, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_repr import RepresentableBase
+from Utility import json_encoder
 
 Base = declarative_base(cls=RepresentableBase)
 
@@ -18,7 +20,7 @@ class UserType(Base):
     modified_by = Column(String(50))
     deleted_on = Column(Date)
     deleted_by = Column(String(50))
-    is_active = Column(sqlalchemy.Boolean)
+    is_active = Column(Boolean)
 
 
 def create(session, user_type_name, created_on, created_by, modified_on, modified_by, deleted_on, deleted_by, is_active):
@@ -29,4 +31,4 @@ def create(session, user_type_name, created_on, created_by, modified_on, modifie
 
 def get(session, user_type_id):
     first: UserType = session.query(UserType).filter(user_type_id == user_type_id).first()
-    return first
+    return json.dump(first, c=json_encoder)
