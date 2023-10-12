@@ -1,6 +1,10 @@
+import json
+
 from sqlalchemy import Column, Integer, String, Date, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_repr import RepresentableBase
+
+from Utility.json_encoder import json_encoder
 
 Base = declarative_base(cls=RepresentableBase)
 
@@ -28,4 +32,4 @@ def create(session, login_based_doc_type, created_on, created_by, modified_on, m
 
 def get(session, login_based_doc_type_id):
     first: LoginBasedDocType = session.query(LoginBasedDocType).filter(login_based_doc_type_id == login_based_doc_type_id).first()
-    return first
+    return json.dumps(first, cls=json_encoder)

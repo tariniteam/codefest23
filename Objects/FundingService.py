@@ -1,7 +1,10 @@
+import json
+
 from sqlalchemy import Column, Integer, String, Date, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_repr import RepresentableBase
 
+from Utility.json_encoder import json_encoder
 
 Base = declarative_base(cls=RepresentableBase)
 
@@ -27,4 +30,4 @@ def create(session, funding_service_type, created_on, created_by, modified_on, m
 
 def get(session, funding_service_id):
     first = session.query(FundingService).filter(funding_service_id=funding_service_id).first()
-    return first
+    return json.dumps(first, cls=json_encoder)

@@ -1,9 +1,12 @@
+import json
+
 from sqlalchemy import Column, ForeignKey, Integer, String, Date, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy_repr import RepresentableBase
 
 from Objects.UserInfo import UserInfo
+from Utility.json_encoder import json_encoder
 
 Base = declarative_base(cls=RepresentableBase)
 
@@ -36,4 +39,4 @@ def create(session, user_info_id, user_emergency_contact_name, user_emergency_co
 
 def get(session, user_emergency_contact_id):
     first = session.query(EmergencyContact).filter(user_emergency_contact_id=user_emergency_contact_id).first()
-    return first
+    return json.dumps(first, cls=json_encoder)

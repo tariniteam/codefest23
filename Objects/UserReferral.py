@@ -1,8 +1,11 @@
+import json
+
 from sqlalchemy import Column, ForeignKey, Integer, String, Date, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy_repr import RepresentableBase
 from Objects.LoginUser import LoginUser
+from Utility.json_encoder import json_encoder
 
 Base = declarative_base(cls=RepresentableBase)
 
@@ -32,4 +35,4 @@ def create(session, login_user_id, created_on, created_by, modified_on, modified
 
 def get(session, user_referral_id):
     first = session.query(UserReferral).filter(user_referral_id=user_referral_id).first()
-    return first
+    return json.dumps(first, cls=json_encoder)

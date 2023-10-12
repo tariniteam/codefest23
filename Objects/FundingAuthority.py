@@ -32,4 +32,4 @@ def create(session, funding_authority_name_or_word, ngo_entity_name, created_on,
 
 def get(session, funding_authority_id):
     first = session.query(FundingAuthority).filter(funding_authority_id=funding_authority_id).first()
-    return json.dump(first, c=json_encoder)
+    return json.dumps(first, cls=json_encoder)

@@ -1,3 +1,5 @@
+import json
+
 from sqlalchemy import Column, Integer, String, ForeignKey, Date, Boolean
 
 from sqlalchemy.orm import relationship
@@ -6,6 +8,7 @@ from sqlalchemy_repr import RepresentableBase
 
 from Objects.UserType import UserType
 from Objects.LoginBasedDocType import LoginBasedDocType
+from Utility.json_encoder import json_encoder
 
 Base = declarative_base(cls=RepresentableBase)
 
@@ -41,4 +44,4 @@ def create(session, login_user_name, login_user_type_id, login_based_doc_type_id
 
 def get(session, login_user_id):
     first = session.query(LoginUser).filter(login_user_id=login_user_id).first()
-    return first
+    return json.dumps(first, cls=json_encoder)
