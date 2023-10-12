@@ -15,7 +15,7 @@ class UserReferral(Base):
     __table_args__ = {"schema": "listening_ear"}
 
     user_referral_id = Column(Integer, primary_key=True)
-    login_user_id = Column(Integer, ForeignKey(LoginUser))
+    login_user_id = Column(Integer, ForeignKey(LoginUser.login_user_id))
     created_on = Column(Date)
     created_by = Column(String(50))
     modified_on = Column(Date)
